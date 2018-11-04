@@ -1,0 +1,42 @@
+syntax="proto3";
+package protoTest;
+
+//protoc -I=protos/ --go_out=plugins=grpc:protobuf protos/EduData.proto
+
+service SetData{
+  // rpc setSubject(EduData.Subject) returns (reply);
+   rpc setData (EduData) returns (EduData);
+  //rpc setHistory (EduHistory) returns (EduHistory);
+}
+
+
+message EduData {
+  string name = 1;
+  string id = 2;  // PublicKey for this person.
+  string email = 3;
+
+  enum SubjectType {
+    KOREAN = 0;
+    ENGLISH = 1;
+    HISTORY = 2;
+    COMPUTER = 3;
+    ETC = 4;
+  }
+
+  message Subject {
+    string SubjectName = 1;
+    string SubjectRank = 2;
+    SubjectType type = 3;
+  }
+
+  repeated Subject subjects = 4;
+}
+
+// Our address book file is just one of these.
+message EduHistory {
+  repeated EduData data = 1;
+}
+
+message reply {
+  int32 count = 1;
+}
