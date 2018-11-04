@@ -1,0 +1,29 @@
+syntax="proto3";
+package protoTest;
+
+message EduData {
+  string name = 1;
+  string id = 2;  // PublicKey for this person.
+  string email = 3;
+
+  enum SubjectType {
+    KOREAN = 0;
+    ENGLISH = 1;
+    HISTORY = 2;
+    COMPUTER = 3;
+    ETC = 4;
+  }
+
+  message Subject {
+    string SubjectName = 1;
+    string SubjectRank = 2;
+    SubjectType type = 3;
+  }
+
+  repeated Subject subjects = 4;
+}
+
+// Our address book file is just one of these.
+message EduHistory {
+  repeated EduData data = 1;
+}
